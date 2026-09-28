@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Tycoon</title>
+    <link rel="stylesheet" href="default.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Computing 2: Applications</p>
+        <h1>Campus Tycoon</h1>
+      </div>
+      <button id="new-game-button" type="button">New Game</button>
+    </header>
+
+    <main class="game-layout">
+      <section class="board-section" aria-labelledby="board-heading">
+        <h2 id="board-heading">Campus Board</h2>
+        <div id="board" class="board" aria-live="polite"></div>
+      </section>
+
+      <aside class="sidebar" aria-label="Game controls and status">
+        <section class="panel current-turn" aria-labelledby="turn-heading">
+          <h2 id="turn-heading">Current Turn</h2>
+          <p id="turn-status" class="turn-status"></p>
+          <p id="dice-result" class="dice-result">Dice: not rolled yet</p>
+          <p id="winner-message" class="winner-message" aria-live="assertive"></p>
+
+          <div class="controls" aria-label="Turn controls">
+            <button id="roll-button" type="button">Roll Dice</button>
+            <button id="buy-button" type="button">Buy Property</button>
+            <button id="skip-button" type="button">Skip Buying</button>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="players-heading">
+          <h2 id="players-heading">Players</h2>
+          <div id="players" class="players"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="log-heading">
+          <h2 id="log-heading">Game Log</h2>
+          <ol id="game-log" class="game-log" aria-live="polite"></ol>
+        </section>
+      </aside>
+    </main>
+
+    <dialog id="player-count-dialog" class="setup-dialog" aria-labelledby="setup-heading">
+      <form method="dialog" class="setup-card">
+        <h2 id="setup-heading">How many players?</h2>
+        <div class="setup-options" aria-label="Choose player count">
+          <button value="2" type="submit">2 Players</button>
+          <button value="3" type="submit">3 Players</button>
+          <button value="4" type="submit">4 Players</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
