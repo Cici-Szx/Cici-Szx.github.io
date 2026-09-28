@@ -180,10 +180,11 @@
   }
 
   // A refracting glass texture: gentle liquid deformation and moving light.
-  // Static transparent PNG is the fallback for reduced motion or unavailable WebGL.
+  // Touch screens use the clean PNG and a small CSS float. Keep refraction on desktop.
   const canvas = document.querySelector('.hello-canvas');
   const holder = document.querySelector('.hello-float');
   const source = document.querySelector('.hello-image');
+  const simpleGlass = matchMedia('(max-width: 700px), (hover: none) and (pointer: coarse)');
   let gl;
   try { gl = canvas.getContext('webgl', {alpha:true, antialias:false, premultipliedAlpha:false, powerPreference:'low-power'}); } catch (_) { return; }
   if (!gl) return;
@@ -241,7 +242,7 @@
   }
   function draw(now){
     glassFrame=0;
-    if(!ready || !visible || document.hidden || reduced.matches) return;
+    if(!ready || !visible || document.hidden || reduced.matches || simpleGlass.matches) return;
     pointer.x+=(pointer.tx-pointer.x)*.035;pointer.y+=(pointer.ty-pointer.y)*.035;
     gl.uniform1f(timeUniform,(now-startTime)/1000);
     gl.uniform2f(pointerUniform,pointer.x,pointer.y);
@@ -249,10 +250,11 @@
     glassFrame=requestAnimationFrame(draw);
   }
   function syncGlass(){
-    holder.classList.toggle('webgl-ready',ready&&!reduced.matches);
+    const animateGlass = ready && !reduced.matches && !simpleGlass.matches;
+    holder.classList.toggle('webgl-ready',animateGlass);
     if(glassFrame) cancelAnimationFrame(glassFrame);
     glassFrame=0;
-    if(ready&&visible&&!document.hidden&&!reduced.matches) glassFrame=requestAnimationFrame(draw);
+    if(animateGlass&&visible&&!document.hidden) glassFrame=requestAnimationFrame(draw);
   }
   function upload(){
     if(ready || !source.naturalWidth) return;
@@ -270,5 +272,6 @@
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;syncGlass();},{threshold:0}).observe(hello);
   document.addEventListener('visibilitychange',syncGlass);
   reduced.addEventListener('change',syncGlass);
+  simpleGlass.addEventListener('change',syncGlass);
   canvas.addEventListener('webglcontextlost',()=>{ready=false;syncGlass();});
 })();

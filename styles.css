@@ -102,8 +102,9 @@ h1 span{white-space:nowrap}
  .identity{top:7%;left:7%;right:7%}.identity-label{font-size:8px;letter-spacing:.16em;margin-bottom:20px}
  h1{font-size:clamp(26px,7.3vw,49px);letter-spacing:-.05em}h1 span{display:inline}
  .identity-role{font-size:16px;margin-top:10px}.identity::after{width:28px;margin-top:22px}
- .background-statement{left:7%;top:30%;font-size:clamp(54px,15vw,88px);line-height:.94;letter-spacing:-.055em}
- .hello-position{left:42%;top:53%;width:48%}
+ .background-statement{left:7%;top:30%;font-size:min(15vw,8.4svh,88px);line-height:.94;letter-spacing:-.055em}
+ .hello-position{left:auto;right:7%;top:57%;width:min(48%,26svh)}
+ .hello-float{animation-name:bubble-float-mobile}
  .entry-nav{left:7%;right:7%;bottom:16%;gap:6%}
  .entry-nav a{grid-template-columns:1fr auto;gap:8px;padding-bottom:9px}.entry-number{grid-column:1/-1;font-size:22px}
  .entry-title{font-size:13px}.entry-arrow{font-size:17px}.entry-nav a+a::before{left:-10%;bottom:-8px}
@@ -118,6 +119,7 @@ h1 span{white-space:nowrap}
  .about-copy .focus-areas{font-size:17px;margin-top:16px}.chapter-footer{padding-top:0}.page-turn{font-size:14px}
  .cover-turn{font-size:15px}.preview-art{aspect-ratio:1.8}.project-layout{align-content:center}
 }
+@keyframes bubble-float-mobile{0%,100%{transform:translate3d(0,2px,0) rotate(-.5deg)}50%{transform:translate3d(0,-4px,0) rotate(.5deg)}}
 @media(max-height:650px) and (min-width:701px){
  .identity{top:6%}.identity-label{margin-bottom:12px}.identity::after{margin-top:12px}.identity-role{font-size:18px}
  h1{font-size:clamp(32px,4vw,50px)}.background-statement{top:33%;font-size:min(9.4vw,14svh)}
