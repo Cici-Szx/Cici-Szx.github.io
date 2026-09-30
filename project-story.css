@@ -21,3 +21,26 @@
  .story-shortcuts a{font-size:12px;gap:18px}
 }
 @media(prefers-reduced-motion:reduce){.story-shortcuts a:hover>span{transform:none}}
+
+/* Keep case studies scannable while retaining diagrams, results and interactions. */
+html.case-document{scroll-padding-top:0}
+.case-study #overview{scroll-margin-top:70px}
+.case-study .case-section{padding-top:72px;padding-bottom:72px}
+.case-study .section-heading{margin-bottom:36px;gap:8%}
+.case-study .section-kicker{margin-bottom:24px!important}
+.case-study .section-heading>p{max-width:65ch}
+.case-study .case-section h2{font-size:clamp(32px,3.5vw,52px);line-height:1.14}
+.case-study .question-block{margin:36px 0}
+.case-study .reflection-grid{margin-top:32px}
+.case-study .next-validation{margin-top:28px}
+.case-study .case-nav{overflow-x:auto;scrollbar-width:thin}
+.case-study .case-nav>div{display:flex;gap:24px;justify-content:space-between;min-width:max-content}
+.case-study .case-nav a{flex:none;min-height:52px}
+.case-study .bloom-reflections{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:760px){
+ .case-study .case-section,.case-study .story-feature{padding-top:48px;padding-bottom:48px}
+ .case-study .section-heading{gap:24px;margin-bottom:28px}
+ .case-study .case-nav>div{min-width:88%;justify-content:flex-start;gap:22px}
+ .case-study .bloom-reflections{grid-template-columns:1fr}
+ .case-study .question-block{margin:28px 0}
+}
