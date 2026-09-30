@@ -50,10 +50,11 @@ function init() {
   });
   const labels=['Leg-rest','Seat','Backrest'].map((name,i)=>{const span=document.createElement('span');span.className='seat-object-label';span.textContent=name;span.style.setProperty('--module-color',['#c7d0b5','#d8decb','#e9e5d7'][i]);host.append(span);return span;});
   const PI=Math.PI;
-  // Independent rigid pieces: no invented hinge. Share turns two pieces onto their flat bases.
+  // Share follows the cardboard photograph: a compact bench with the small curved part leaning at one end.
+  // The long back section lies on its rear face; the seat nests in its lower bay rather than extending the bench.
   const layouts={
     rest:[{p:[-.746,0,0],r:[0,0,0]},{p:[0,0,0],r:[0,0,0]},{p:[.746,0,0],r:[0,0,0]}],
-    share:[{p:[.52,.582,0],r:[PI,0,0]},{p:[-.225,.645,0],r:[PI,0,0]},{p:[-.70,.36,0],r:[0,0,PI/2]}],
+    share:[{p:[-.62,.096,0],r:[0,0,.27]},{p:[.74,0,0],r:[0,0,0]},{p:[1.1,.36,0],r:[0,0,PI/2]}],
     gather:[{p:[-1.02,0,.58],r:[0,-.30,0]},{p:[.10,0,-.70],r:[0,PI+.24,0]},{p:[1.4,.36,.60],r:[0,PI-.28,-PI/2]}]
   };
   const views={perspective:[-2.8,2.1,5.6],side:[0,.85,7],above:[-1.4,6,3]};
@@ -61,7 +62,7 @@ function init() {
   let cameraFrom=new THREE.Vector3(),cameraTo=new THREE.Vector3(...views[view]);camera.position.copy(cameraTo);
   const lookAt=new THREE.Vector3(0,.58,0);
   function transforms(key){return layouts[key].map(s=>({position:new THREE.Vector3(...s.p),quaternion:new THREE.Quaternion().setFromEuler(new THREE.Euler(...s.r))}));}
-  function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);const aspect=w/h;const half=Math.max(1.38,2.0/aspect);camera.left=-half*aspect;camera.right=half*aspect;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();draw();}
+  function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);const aspect=w/h;const half=mode==='share'?Math.max(1.02,1.48/aspect):Math.max(1.38,1.85/aspect);camera.left=-half*aspect;camera.right=half*aspect;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();draw();}
   function draw(){
     camera.lookAt(lookAt);camera.updateMatrixWorld();scene.updateMatrixWorld(true);renderer.render(scene,camera);
     const w=host.clientWidth,h=host.clientHeight;
@@ -79,7 +80,7 @@ function init() {
     camera.position.lerpVectors(cameraFrom,cameraTo,ease);draw();if(t<1)frame=requestAnimationFrame(tick);else{animation=null;host.dataset.moving='false';}
   }
   function choose(nextMode=mode,nextView=view){
-    mode=nextMode;view=nextView;cancelAnimationFrame(frame);from=modules.map(m=>({position:m.position.clone(),quaternion:m.quaternion.clone()}));target=transforms(mode);cameraFrom.copy(camera.position);cameraTo.set(...views[view]);
+    mode=nextMode;view=nextView;cancelAnimationFrame(frame);from=modules.map(m=>({position:m.position.clone(),quaternion:m.quaternion.clone()}));target=transforms(mode);cameraFrom.copy(camera.position);cameraTo.set(...views[view]);resize();
     host.dataset.arrangement=mode;host.dataset.view=view;host.dataset.moving=String(!reduced.matches);host.setAttribute('aria-label',`3D seating model: ${mode} arrangement, ${view} view. Three labelled modules: backrest, seat and leg-rest.`);
     document.querySelectorAll('[data-seat-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.seatView===view)));
     if(reduced.matches){modules.forEach((m,i)=>{m.position.copy(target[i].position);m.quaternion.copy(target[i].quaternion)});camera.position.copy(cameraTo);draw();host.dataset.moving='false';}
