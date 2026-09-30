@@ -36,7 +36,7 @@
   document.querySelectorAll('[data-month]').forEach(button => button.addEventListener('click',() => chooseMonth(Number(button.dataset.month))));
   const arrangements = {
     rest: {capacity:'1 person',label:'INDIVIDUAL USE',title:'Room to recline.',copy:'Bring the modules together to support a reclined posture for one person.',file:'seat-test-rest',alt:'Participant trying the full-scale cardboard chair in a reclined posture',caption:'Full-scale cardboard prototype / individual rest'},
-    share: {capacity:'2 people',label:'SHARED USE',title:'A place for two.',copy:'A compact, flat-topped bench, with the curved leg-rest leaning at one end—as photographed in the lawn test.',file:'seat-test-shared',alt:'Cardboard seat components configured for shared use on the lawn',caption:'Full-scale cardboard prototype / shared seating configuration'},
+    share: {capacity:'2 people',label:'SHARED USE',title:'A place for two.',copy:'The backrest moves to the left. The leg-rest flips over the right side of the single seat body, forming a shared bench.',file:'seat-test-shared',alt:'Cardboard seat components configured for shared use on the lawn',caption:'Full-scale cardboard prototype / shared seating configuration'},
     gather: {capacity:'3 people',label:'SEPARATE MODULES',title:'Make room for a group.',copy:'Separate the three components to create individual places around a shared space.',file:'seat-test-separated',alt:'Three separated cardboard seating modules arranged on the lawn',caption:'Full-scale cardboard prototype / separated components'}
   };
   document.querySelectorAll('[data-seat]').forEach(button => button.addEventListener('click',() => {

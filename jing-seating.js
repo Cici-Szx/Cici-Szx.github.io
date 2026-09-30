@@ -20,42 +20,50 @@ function init() {
   light.shadow.mapSize.set(1024,1024);Object.assign(light.shadow.camera,{left:-5,right:5,top:5,bottom:-5,near:.1,far:20});light.shadow.bias=-.0007;light.shadow.normalBias=.025;scene.add(light);
   const fill=new THREE.DirectionalLight(0xb8d8cf,1.2);fill.position.set(4,3,-4);scene.add(fill);
   const floor=new THREE.Mesh(new THREE.PlaneGeometry(30,30),new THREE.ShadowMaterial({opacity:.23}));floor.rotation.x=-Math.PI/2;floor.position.y=-.017;floor.receiveShadow=true;scene.add(floor);
-  const L=.72,W=.70,T=.038;
-  const materials=[0xe9e5d7,0xd8decb,0xc7d0b5].map(color=>new THREE.MeshStandardMaterial({color,roughness:.65,metalness:0}));
-  // A continuous profile across the three equal-width pieces: low foot, concave seat, inclined back.
-  const curves=[
-    new THREE.CubicBezierCurve(new THREE.Vector2(-L/2,.035),new THREE.Vector2(-.15,.54),new THREE.Vector2(.03,.66),new THREE.Vector2(L/2,.55)),
-    new THREE.CubicBezierCurve(new THREE.Vector2(-L/2,.55),new THREE.Vector2(-.12,.38),new THREE.Vector2(.15,.40),new THREE.Vector2(L/2,.64)),
-    new THREE.CubicBezierCurve(new THREE.Vector2(-L/2,.64),new THREE.Vector2(-.12,.92),new THREE.Vector2(.19,1.34),new THREE.Vector2(L/2,1.52))
+  const L=.72,W=.70,T=.032,H=.80;
+  const materials=[0xc7d0b5,0xd8decb,0xe9e5d7].map(color=>new THREE.MeshStandardMaterial({color,roughness:.65,metalness:0}));
+  const v=(x,y)=>new THREE.Vector2(x,y);
+  const curve=(points)=>new THREE.CubicBezierCurve(...points.map(([x,y])=>v(x,y))).getPoints(48);
+  // Follow the three outlined boundaries: a small curved leg-rest, ONE long
+  // lower body (including the support under the back), and a detachable wedge.
+  const bodyCurve=curve([[-L,.40],[-.48,.25],[-.24,.30],[0,H]]);
+  const profiles=[
+    curve([[-L/2,.025],[-.12,.55],[.12,.50],[L/2,.40]]),
+    [...bodyCurve,v(L,H)],
+    [v(-L/2,.025),v(L/2,H)]
   ];
-  function extrusion(points,depth,material,z){
-    const shape=new THREE.Shape(points);const geo=new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:.004,bevelThickness:.004,curveSegments:24});
+  function extrusion(shape,depth,material,z,bevel=false){
+    const geo=new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:bevel,bevelSegments:2,steps:1,bevelSize:.003,bevelThickness:.003,curveSegments:24});
     const mesh=new THREE.Mesh(geo,material);mesh.position.z=z;mesh.castShadow=true;mesh.receiveShadow=true;return mesh;
   }
   function box(group,w,h,d,x,y,z,material){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);}
-  const modules=curves.map((curve,i)=>{
-    const group=new THREE.Group(),top=curve.getPoints(48),material=materials[2-i];
-    group.add(extrusion([...top,...top.map(p=>new THREE.Vector2(p.x,Math.max(.009,p.y-T))).reverse()],W,material,-W/2));
-    // Thin printed frames at both sides; open bays remain visible from the default viewpoint.
-    const upper=top.filter(p=>p.y>.12&&p.x>-L/2+.025&&p.x<L/2-.025);
-    for(const z of [-W/2,W/2-T]){
-      const outer=new THREE.Shape([new THREE.Vector2(-L/2,0),new THREE.Vector2(L/2,0),...top.slice().reverse()]);
-      if(upper.length>2){const hole=new THREE.Path();hole.moveTo(upper[0].x,.05);for(const p of upper)hole.lineTo(p.x,p.y-.065);hole.lineTo(upper.at(-1).x,.05);hole.closePath();outer.holes.push(hole);}
-      const mesh=new THREE.Mesh(new THREE.ExtrudeGeometry(outer,{depth:T,bevelEnabled:false,steps:1}),material);mesh.position.z=z;mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);
-    }
-    box(group,L,.032,W,0,.016,0,material);
-    if(i===2)box(group,.034,1.52,W,L/2-.017,.76,0,material);
-    if(i===2)for(const z of [-W/2+T/2,W/2-T/2])box(group,L,.045,T,0,.62,z,material);
+  const modules=profiles.map((top,i)=>{
+    const group=new THREE.Group(),material=materials[i],left=top[0].x,right=top.at(-1).x;
+    const shell=new THREE.Shape([...top,...top.map(p=>v(p.x,Math.max(.006,p.y-T))).reverse()]);
+    group.add(extrusion(shell,W,material,-W/2,true));
+    const outer=new THREE.Shape([v(left,0),v(right,0),...top.slice().reverse()]);
+    const holes=i===1 ? [
+      [v(-L+.04,.05),...bodyCurve.filter(p=>p.x>-L+.04&&p.x<-.04).map(p=>v(p.x,p.y-.065)),v(-.04,.05)],
+      [v(.04,.05),v(.04,H-.065),v(L-.04,H-.065),v(L-.04,.05)]
+    ] : i===2 ? [[v(-L/2+.09,.05),v(L/2-.045,H-.12),v(L/2-.045,.05)]] : [
+      [v(-L/2+.06,.05),...top.filter(p=>p.x>-L/2+.06&&p.x<L/2-.04).map(p=>v(p.x,p.y-.065)),v(L/2-.04,.05)]
+    ];
+    for(const points of holes){const hole=new THREE.Path(points);hole.closePath();outer.holes.push(hole);}
+    for(const z of [-W/2,W/2-T])group.add(extrusion(outer,T,material,z));
+    box(group,right-left,T,W,(left+right)/2,T/2,0,material);
+    // End walls and the main body's middle support stay attached to their module.
+    box(group,T,top.at(-1).y,W,right-T/2,top.at(-1).y/2,0,material);
+    if(i===1){box(group,T,H,W,0,H/2,0,material);box(group,T,.40,W,left+T/2,.20,0,material);}
     scene.add(group);return group;
   });
-  const labels=['Leg-rest','Seat','Backrest'].map((name,i)=>{const span=document.createElement('span');span.className='seat-object-label';span.textContent=name;span.style.setProperty('--module-color',['#c7d0b5','#d8decb','#e9e5d7'][i]);host.append(span);return span;});
+  const labels=['Leg-rest','Seat body','Backrest'].map((name,i)=>{const span=document.createElement('span');span.className='seat-object-label';span.textContent=name;span.style.setProperty('--module-color',['#c7d0b5','#d8decb','#e9e5d7'][i]);host.append(span);return span;});
   const PI=Math.PI;
-  // Share follows the cardboard photograph: a compact bench with the small curved part leaning at one end.
-  // The long back section lies on its rear face; the seat nests in its lower bay rather than extending the bench.
+  // Share: incline at left; unbroken lower body; curved leg-rest inverted at
+  // upper right. The inverse profiles meet without splitting the lower body.
   const layouts={
-    rest:[{p:[-.746,0,0],r:[0,0,0]},{p:[0,0,0],r:[0,0,0]},{p:[.746,0,0],r:[0,0,0]}],
-    share:[{p:[-.62,.096,0],r:[0,0,.27]},{p:[.74,0,0],r:[0,0,0]},{p:[1.1,.36,0],r:[0,0,PI/2]}],
-    gather:[{p:[-1.02,0,.58],r:[0,-.30,0]},{p:[.10,0,-.70],r:[0,PI+.24,0]},{p:[1.4,.36,.60],r:[0,PI-.28,-PI/2]}]
+    rest:[{p:[-.72,0,0],r:[0,0,0]},{p:[.36,0,0],r:[0,0,0]},{p:[.72,H+.01,0],r:[0,0,0]}],
+    share:[{p:[.72,H+.035,0],r:[PI,0,0]},{p:[.36,0,0],r:[0,PI,0]},{p:[-.73,0,0],r:[0,0,0]}],
+    gather:[{p:[-1.20,0,.68],r:[0,-.30,0]},{p:[0,0,-.82],r:[0,.14,0]},{p:[1.05,0,.68],r:[0,PI/2,0]}]
   };
   const views={perspective:[-2.8,2.1,5.6],side:[0,.85,7],above:[-1.4,6,3]};
   let mode='rest',view='perspective',frame=0,animation=null,from=[],target=[];
@@ -81,7 +89,7 @@ function init() {
   }
   function choose(nextMode=mode,nextView=view){
     mode=nextMode;view=nextView;cancelAnimationFrame(frame);from=modules.map(m=>({position:m.position.clone(),quaternion:m.quaternion.clone()}));target=transforms(mode);cameraFrom.copy(camera.position);cameraTo.set(...views[view]);resize();
-    host.dataset.arrangement=mode;host.dataset.view=view;host.dataset.moving=String(!reduced.matches);host.setAttribute('aria-label',`3D seating model: ${mode} arrangement, ${view} view. Three labelled modules: backrest, seat and leg-rest.`);
+    host.dataset.arrangement=mode;host.dataset.view=view;host.dataset.moving=String(!reduced.matches);host.setAttribute('aria-label',`3D seating model: ${mode} arrangement, ${view} view. Three labelled modules: backrest, one continuous seat body and leg-rest.`);
     document.querySelectorAll('[data-seat-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.seatView===view)));
     if(reduced.matches){modules.forEach((m,i)=>{m.position.copy(target[i].position);m.quaternion.copy(target[i].quaternion)});camera.position.copy(cameraTo);draw();host.dataset.moving='false';}
     else{animation=performance.now();frame=requestAnimationFrame(tick);}
