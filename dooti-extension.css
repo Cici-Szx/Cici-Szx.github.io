@@ -9,8 +9,11 @@ html.case-document{scroll-padding-top:0}
 .case-study .prototype-copy h3{font-size:32px}
 .case-study .system-detail{min-height:195px;padding-top:24px}
 .case-study .section-kicker{margin-bottom:24px!important}
-.dooti-research{margin-top:36px;align-items:center}
-.dooti-research figure>img{max-height:330px}
+.case-study .dooti-research-brief{margin-bottom:0}
+.dooti-validation{margin-top:38px;padding-top:34px;border-top:1px solid var(--case-line);align-items:center}
+.dooti-validation figure>img{max-height:300px}
+.dooti-validation .small-label{margin-bottom:16px}
+.dooti-decisions .dooti-validation-note{font-size:12px;margin-top:12px}
 .dooti-decisions>div{padding:18px 0;border-top:1px solid var(--case-line)}
 .dooti-decisions h3{font-size:23px;margin-bottom:9px}
 .dooti-decisions p,.dooti-delivery-grid article>p,.dooti-detail-grid p,.dooti-safety-grid p,.dooti-closing p{font-size:14px;line-height:1.8;color:var(--case-muted)}
@@ -43,7 +46,7 @@ html.case-document{scroll-padding-top:0}
  .case-study .prototype-panel{min-height:0}
  .case-study .prototype-image{height:280px}
  .case-study .system-detail{min-height:0}
- .dooti-research{margin-top:28px}
+ .dooti-validation{margin-top:28px;padding-top:28px}
  .dooti-delivery-grid,.dooti-detail-grid,.dooti-safety-grid,.dooti-closing{grid-template-columns:1fr;gap:28px}
  .dooti-delivery-image{height:260px}.dooti-delivery-image img{max-height:220px}
  .dooti-safety-grid{gap:22px}.dooti-closing{gap:12px;margin-top:28px}
