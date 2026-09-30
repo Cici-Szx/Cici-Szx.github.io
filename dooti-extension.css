@@ -1,0 +1,59 @@
+/* Dooti-only additions; shared case-study styles remain unchanged. */
+.dooti-brand img,.dooti-packaging img{height:auto}
+.dooti-brand{background:#202b23}
+.dooti-brand-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:9%;align-items:center}
+.dooti-guide-art{padding:30px;background:#e9e5d8;--case-muted:#5c6556}
+.dooti-guide-art>img{width:100%;max-height:560px;object-fit:contain}
+.dooti-brand-story h3,.dooti-cmf h3,.dooti-onboarding h3{font-size:clamp(28px,3vw,42px);margin:16px 0 24px;line-height:1.2}
+.dooti-brand-story>p,.dooti-onboarding p,.dooti-packaging-parts p{font-size:14px;line-height:1.85;color:var(--case-muted)}
+.dooti-logo-study{margin:28px 0!important}
+.dooti-logo-study img{width:100%;padding:18px;background:white}
+.dooti-brand-principles{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:28px;padding-top:22px;border-top:1px solid var(--case-line);color:var(--case-accent);font-size:11px}
+.dooti-cmf{display:grid;grid-template-columns:1fr 1fr;gap:9%;align-items:center;margin-top:85px;padding-top:60px;border-top:1px solid var(--case-line)}
+.dooti-cmf img{width:100%;height:auto}
+.dooti-cmf dl{margin:0}.dooti-cmf dl>div{padding:15px 0;border-top:1px solid var(--case-line)}
+.dooti-cmf dt{font-size:15px}.dooti-cmf dd{margin:6px 0 0;color:var(--case-muted);font-size:13px}
+.dooti-packaging-lead{display:grid;grid-template-columns:1.4fr 1fr;gap:7%;align-items:center}
+.dooti-packaging-photos{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.dooti-packaging-photos figure:nth-child(2){margin-top:70px}
+.dooti-packaging-photos img{width:100%;aspect-ratio:.8;object-fit:cover;background:#ece9de}
+.dooti-packaging-parts>div{position:relative;padding:22px 0 22px 35px;border-top:1px solid var(--case-line)}
+.dooti-packaging-parts>div>span{position:absolute;left:0;top:27px;font-size:10px;color:var(--case-accent)}
+.dooti-packaging-parts h3{font-size:23px;margin-bottom:10px}
+.dooti-evidence{margin-top:50px;border-block:1px solid var(--case-line)}
+.dooti-evidence>summary{cursor:pointer;padding:24px 0;display:flex;justify-content:space-between;gap:24px;font-size:16px;list-style:none}
+.dooti-evidence>summary::-webkit-details-marker{display:none}
+.dooti-evidence[open]>summary>span{transform:rotate(90deg)}
+.dooti-dieline-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;margin:15px 0 35px}
+.dooti-dieline-grid img{width:100%;height:300px;object-fit:contain;background:#fff;padding:22px}
+.dooti-packaging-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--case-line);padding:25px 0}
+.dooti-packaging-metrics strong{display:block;font-size:36px;font-weight:400;letter-spacing:-.04em}
+.dooti-packaging-metrics span{display:block;font-size:12px;line-height:1.8;color:var(--case-muted);margin-top:10px}
+.dooti-evidence-note{font-size:12px;color:var(--case-muted);padding:0 0 28px}
+.dooti-onboarding{display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:10%;margin-top:70px}
+.dooti-onboarding img{width:100%;max-height:400px;object-fit:contain;background:#edeadd}
+.dooti-status-note{padding:24px 28px;border-left:2px solid var(--case-accent);background:#202b23;margin-bottom:35px}
+.dooti-status-note>p{margin-top:10px;font-size:14px;color:var(--case-muted);max-width:800px}
+.dooti-compliance-list details{border-top:1px solid var(--case-line)}
+.dooti-compliance-list details:last-child{border-bottom:1px solid var(--case-line)}
+.dooti-compliance-list summary{display:flex;gap:25px;align-items:center;padding:28px 0;cursor:pointer;list-style:none}
+.dooti-compliance-list summary::-webkit-details-marker{display:none}
+.dooti-compliance-list summary>span:first-child{font-size:11px;color:var(--case-accent)}
+.dooti-compliance-list summary h3{font-size:clamp(19px,2.2vw,28px)}
+.dooti-detail-symbol{margin-left:auto;font-size:24px;color:var(--case-accent)}.dooti-detail-symbol::before{content:'+'}details[open] .dooti-detail-symbol::before{content:'−'}
+.dooti-compliance-body{display:grid;grid-template-columns:1fr 1fr;gap:9%;padding:0 0 30px 40px}
+.dooti-compliance-body h4{margin:0 0 10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--case-accent);font-weight:400}
+.dooti-compliance-body p{font-size:14px;color:var(--case-muted);line-height:1.9}
+.dooti-source-note{margin-top:30px!important;font-size:11px;line-height:1.85;color:var(--case-muted)}
+.dooti-source-note a{text-decoration:underline;text-underline-offset:3px}
+@media(min-width:761px) and (max-width:1150px){.case-study .case-nav{overflow-x:auto}.case-study .case-nav>div{display:flex;width:max-content;max-width:none;padding:0 6%;gap:24px}.case-study .case-nav a{flex:none}}
+@media(max-width:760px){
+ .dooti-brand-layout,.dooti-cmf,.dooti-packaging-lead,.dooti-onboarding{grid-template-columns:1fr;gap:35px}
+ .dooti-guide-art{padding:20px}.dooti-guide-art>img{max-height:430px}
+ .dooti-cmf{margin-top:50px;padding-top:40px}
+ .dooti-packaging-photos{gap:12px}.dooti-packaging-photos figure:nth-child(2){margin-top:35px}
+ .dooti-dieline-grid{grid-template-columns:1fr;gap:24px}.dooti-dieline-grid img{height:240px}
+ .dooti-packaging-metrics{grid-template-columns:1fr;gap:22px}.dooti-packaging-metrics>div{display:grid;grid-template-columns:110px 1fr;gap:18px}.dooti-packaging-metrics strong{font-size:29px}.dooti-packaging-metrics span{margin-top:0}
+ .dooti-onboarding{margin-top:45px}.dooti-status-note{padding:20px}
+ .dooti-compliance-list summary{gap:14px;padding:24px 0}.dooti-compliance-body{grid-template-columns:1fr;gap:24px;padding-left:27px}
+}

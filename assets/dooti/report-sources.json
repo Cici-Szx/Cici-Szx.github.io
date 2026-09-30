@@ -1,0 +1,110 @@
+{
+  "source": "PDE - Final Term.pdf",
+  "note": "Visual excerpts from the supplied project report. Original report graphics are process evidence; partnership, certification and disposal claims are not independently established.",
+  "assets": {
+    "brand-early.webp": {
+      "pdfPage": 37,
+      "cropAtReferenceSize": [
+        80,
+        735,
+        600,
+        834
+      ],
+      "referenceSize": [
+        1273,
+        1800
+      ]
+    },
+    "brand-guide.webp": {
+      "pdfPage": 11,
+      "cropAtReferenceSize": [
+        15,
+        290,
+        375,
+        760
+      ],
+      "referenceSize": [
+        1700,
+        1203
+      ]
+    },
+    "cmf-textures.webp": {
+      "pdfPage": 10,
+      "cropAtReferenceSize": [
+        75,
+        885,
+        480,
+        1155
+      ],
+      "referenceSize": [
+        1700,
+        1203
+      ]
+    },
+    "packaging-open.webp": {
+      "pdfPage": 12,
+      "cropAtReferenceSize": [
+        1086,
+        535,
+        1350,
+        864
+      ],
+      "referenceSize": [
+        1700,
+        1203
+      ]
+    },
+    "packaging-retention.webp": {
+      "pdfPage": 12,
+      "cropAtReferenceSize": [
+        1356,
+        768,
+        1690,
+        1096
+      ],
+      "referenceSize": [
+        1700,
+        1203
+      ]
+    },
+    "packaging-dieline.webp": {
+      "pdfPage": 40,
+      "cropAtReferenceSize": [
+        825,
+        330,
+        1200,
+        562
+      ],
+      "referenceSize": [
+        1273,
+        1800
+      ]
+    },
+    "packaging-frame.webp": {
+      "pdfPage": 40,
+      "cropAtReferenceSize": [
+        834,
+        605,
+        992,
+        738
+      ],
+      "referenceSize": [
+        1273,
+        1800
+      ]
+    },
+    "guide-steps.webp": {
+      "pdfPage": 11,
+      "cropAtReferenceSize": [
+        699,
+        249,
+        1033,
+        500
+      ],
+      "referenceSize": [
+        1700,
+        1203
+      ]
+    }
+  }
+}
