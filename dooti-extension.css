@@ -46,7 +46,7 @@
 .dooti-compliance-body p{font-size:14px;color:var(--case-muted);line-height:1.9}
 .dooti-source-note{margin-top:30px!important;font-size:11px;line-height:1.85;color:var(--case-muted)}
 .dooti-source-note a{text-decoration:underline;text-underline-offset:3px}
-@media(min-width:761px) and (max-width:1150px){.case-study .case-nav{overflow-x:auto}.case-study .case-nav>div{display:flex;width:max-content;max-width:none;padding:0 6%;gap:24px}.case-study .case-nav a{flex:none}}
+@media(min-width:761px) and (max-width:1280px){.case-study .case-nav{overflow-x:auto}.case-study .case-nav>div{display:flex;width:max-content;max-width:none;padding:0 6%;gap:24px}.case-study .case-nav a{flex:none}}
 @media(max-width:760px){
  .dooti-brand-layout,.dooti-cmf,.dooti-packaging-lead,.dooti-onboarding{grid-template-columns:1fr;gap:35px}
  .dooti-guide-art{padding:20px}.dooti-guide-art>img{max-height:430px}
