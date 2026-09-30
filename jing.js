@@ -43,8 +43,6 @@
     const key = button.dataset.seat;
     const state = arrangements[key];
     document.querySelectorAll('[data-seat]').forEach(item => item.setAttribute('aria-pressed',String(item === button)));
-    $('.module-map').dataset.layout = key;
-    $('.module-map').setAttribute('aria-label',`Illustrative arrangement of three modules for ${state.capacity}`);
     $('#seat-capacity').textContent = state.capacity;
     $('#seat-use-label').textContent = state.label;
     $('#seat-use-title').textContent = state.title;

@@ -1,0 +1,17 @@
+{
+  "source": "Summer Report.pdf, pages 6\u20137",
+  "method": "AI-assisted reconstruction of separate components from original 3D-printed model photos; not unmodified documentary photographs",
+  "tool": "built-in image_gen",
+  "labels": [
+    "Backrest module",
+    "Seat module",
+    "Leg-rest module"
+  ],
+  "labelsNote": "Functional names for the reclined configuration",
+  "files": [
+    "module-backrest.webp",
+    "module-seat.webp",
+    "module-leg-rest.webp"
+  ],
+  "originalEvidence": "seat-small-model.png"
+}
