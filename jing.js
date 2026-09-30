@@ -49,6 +49,10 @@
     $('#seat-use-copy').textContent = state.copy;
     $('#seat-photo-caption').textContent = state.caption;
     swapImage($('#seat-photo'),state.file,state.alt);
+    if ($('#seat-scene').dataset.ready === 'false') {
+      swapImage($('#seat-scene-fallback'),state.file,state.alt);
+      $('#seat-scene').setAttribute('aria-label',`Original prototype photograph: ${key} arrangement`);
+    }
   }));
   const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
     if (!entry.isIntersecting) return;
