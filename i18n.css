@@ -1,0 +1,56 @@
+/* One language control, shared by the portfolio, case studies and playable demo. */
+.language-switch{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(20px,env(safe-area-inset-right));z-index:1000;display:flex;align-items:center;gap:3px;padding:2px 5px;background:rgba(24,29,29,.94);border:1px solid #a6b4a64d;border-radius:24px;color:#f4f2ed;box-shadow:0 3px 18px #0002;font:500 12px/1.2 'DM Sans','PingFang SC','Microsoft YaHei',sans-serif;backdrop-filter:blur(12px);isolation:isolate}
+.language-switch button{appearance:none;min-width:42px;min-height:36px;padding:8px;border:0;border-radius:20px;background:transparent;color:#bdbfbb;font:inherit;cursor:pointer;white-space:nowrap}
+.language-switch button[aria-pressed="true"]{background:#e8eddf;color:#20291f}
+.language-switch button:hover{color:#fff;background:#ffffff20}
+.language-switch button[aria-pressed="true"]:hover{color:#20291f;background:#f5f7ef}
+.language-switch button:focus-visible{outline:2px solid #eab4ca;outline-offset:3px}
+.language-switch>span{opacity:.5}
+.language-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.case-study .case-topbar{padding-right:154px}
+body:has(.app-header) .app-header{padding-right:154px}
+body:not(.case-study):not(:has(.app-header)) .chapter-header{padding-right:108px}
+:lang(zh-CN) body{--font:'DM Sans','PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif;line-break:strict;word-break:normal;overflow-wrap:break-word}
+:lang(zh-CN) body :where(h1,h2,h3,h4,p,a,button,span,dt,dd,label,small,li,summary,output,figcaption){letter-spacing:normal!important;text-transform:none}
+:lang(zh-CN) :where(h2,h3,h4){line-height:1.35!important}
+:lang(zh-CN) :where(p,li,dd,figcaption){line-height:1.8}
+:lang(zh-CN) :where(.section-heading>p,.overview-lead,.about-story p,.chapter-description){line-height:1.85!important}
+:lang(zh-CN) .background-statement{font-family:'PingFang SC','Microsoft YaHei',sans-serif;line-height:1.18;font-weight:600;font-size:clamp(58px,min(8vw,12svh),150px);top:30%}
+:lang(zh-CN) .about-page .about-story h2{font-size:clamp(38px,5.2vw,76px);line-height:1.3}
+:lang(zh-CN) .case-study .case-section h2{font-size:clamp(28px,3.1vw,46px);line-height:1.35}
+:lang(zh-CN) .hero-heading>p{line-height:1.5}
+:lang(zh-CN) :where(.section-kicker,.small-label,.hero-kicker,.eyebrow,.section-label){line-height:1.6!important}
+:lang(zh-CN) :where(.case-nav a,.prototype-tabs button,[role="tab"]){line-height:1.5;white-space:normal}
+:lang(zh-CN) .case-nav a{white-space:nowrap}
+:lang(zh-CN) :where(.project-card,.profile-column,.section-heading>*,.hero-heading>*,.system-controls,.prototype-copy){min-width:0}
+:lang(zh-CN) .ct-tile>span:first-child{font-size:clamp(8px,1vw,12px);line-height:1.25}
+:lang(zh-CN) .ct-tile small{line-height:1.2}
+@media(max-width:760px){
+ .language-switch{top:max(10px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right))}
+ .language-switch button{min-height:36px;min-width:38px;padding:8px 6px}
+ .case-study .case-topbar{padding-right:125px;gap:10px}
+ body:has(.app-header) .app-header{padding-right:125px}
+ .case-study .case-topbar>a:last-of-type{display:none}
+ body:not(.case-study):not(:has(.app-header)) .chapter-header{padding-right:0;margin-top:38px}
+ body:not(.case-study) .identity{top:max(76px,10svh)}
+ :lang(zh-CN) .background-statement{top:33%;font-size:min(14vw,8svh,80px);line-height:1.2}
+ :lang(zh-CN) .about-page .about-story h2{font-size:clamp(32px,8.6vw,50px)}
+ :lang(zh-CN) .case-study .case-section h2{font-size:clamp(27px,7vw,38px)}
+ :lang(zh-CN) :where(.case-study .section-heading>p,.overview-lead){font-size:15px}
+ :lang(zh-CN) .case-nav a{min-width:64px}
+}
+@media(max-width:360px){.case-study .case-wordmark{font-size:16px}.case-study .case-back{font-size:11px}}
+@media(max-height:540px) and (orientation:landscape){body:not(.case-study) .identity{top:60px}:lang(zh-CN) .background-statement{top:39%;font-size:9svh}}
+/* Chinese labels stay readable, with reserved room for the language pill. */
+:lang(zh-CN) :where(.hero-kicker,.small-label,.section-kicker,.section-label,.demo-caption,.ct-note,.demo-note){font-size:11px!important}
+:lang(zh-CN) .hero-kicker{gap:18px;align-items:flex-start}
+:lang(zh-CN) .move-readout>strong{line-height:1.4}
+@media(max-width:760px){
+ .case-study .case-topbar{grid-template-columns:auto minmax(0,1fr)}
+ .case-study .case-back{white-space:nowrap;min-width:max-content}
+ .case-study .case-wordmark{font-size:clamp(12px,4vw,18px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ :lang(zh-CN) .hero-kicker{font-size:10px!important}
+ :lang(zh-CN) .hero-kicker>span:last-child{text-align:right}
+ :lang(zh-CN) .dance-stage .move-readout strong{font-size:21px;line-height:1.4}
+}
+@media(max-width:360px){.case-study .case-back{font-size:10px}.case-study .case-topbar{gap:7px}}

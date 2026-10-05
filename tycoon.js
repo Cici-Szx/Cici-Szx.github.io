@@ -100,7 +100,7 @@ $('#run-checks').addEventListener('click',async()=>{
  for(let i=0;i<checkCases.length;i++){rows[i].lastElementChild.textContent='Running…';if(!reduced.matches)await wait(200);let okay=false;try{okay=checkCases[i]();}catch(error){console.error(error);}rows[i].className=okay?'pass':'fail';rows[i].lastElementChild.textContent=okay?'✓ Passed':'× Failed';if(okay)passed++;}
  $('#check-status').textContent=`${passed} of 4 live checks passed against the original rule module. The full Mocha suite was run separately.`;button.disabled=false;button.textContent='Run checks again ↗';
 });
-$('#launch-game').addEventListener('click',()=>{const frame=$('#full-game');frame.src='assets/tycoon/play/index.html';frame.hidden=false;$('#game-launch').hidden=true;frame.focus();});
+$('#launch-game').addEventListener('click',()=>{const frame=$('#full-game');frame.src='assets/tycoon/play/index.html?lang='+(window.ciciI18n?.getLanguage() || 'en');frame.hidden=false;$('#game-launch').hidden=true;frame.focus();});
 const nav=[...document.querySelectorAll('.case-nav a')];const sections=nav.map(a=>document.querySelector(a.hash));let ticking=false;
 function reading(){ticking=false;const total=document.documentElement.scrollHeight-innerHeight;$('.reading-progress').style.transform=`scaleX(${total>0?scrollY/total:0})`;let current=-1;sections.forEach((s,i)=>{if(s.getBoundingClientRect().top<=160)current=i;});nav.forEach((a,i)=>{if(i===current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
 function schedule(){if(!ticking){ticking=true;requestAnimationFrame(reading);}}

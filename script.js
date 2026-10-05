@@ -164,6 +164,27 @@
   });
   addEventListener('popstate', () => { cancelNavigation(); requestScene(); });
   addEventListener('pageshow', requestScene);
+  // Keep the current chapter and reading position when translated copy changes its height.
+  let languageAnchor;
+  document.addEventListener('beforelanguagechange', () => {
+    cancelNavigation();
+    const chapters = ['#home', '#about', '#work', '#experience'];
+    const index = chapters.reduce((current, hash, i) => scrollY >= chapterTop(hash) - 2 ? i : current, 0);
+    const top = chapterTop(chapters[index]);
+    const end = index < 3 ? chapterTop(chapters[index + 1]) : book.offsetTop + book.offsetHeight;
+    languageAnchor = {hash:chapters[index], fraction:clamp((scrollY - top) / Math.max(1, end - top))};
+  });
+  document.addEventListener('languagechange', () => {
+    configure();
+    if (!languageAnchor) return;
+    const chapters = ['#home', '#about', '#work', '#experience'];
+    const index = chapters.indexOf(languageAnchor.hash);
+    const top = chapterTop(languageAnchor.hash);
+    const end = index < 3 ? chapterTop(chapters[index + 1]) : book.offsetTop + book.offsetHeight;
+    scrollTo({top:top + languageAnchor.fraction * (end - top), behavior:'instant'});
+    updateScene();
+    languageAnchor = null;
+  });
 
   // Reveal the dated entry once it enters the reading area; chapter motion stays scroll-driven.
   const timelineEntries = [...document.querySelectorAll('.timeline-entry')];

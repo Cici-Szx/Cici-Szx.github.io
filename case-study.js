@@ -36,8 +36,8 @@
       const source = button.querySelector('img');
       const image = document.getElementById('viewer-image');
       image.src = source.src;
-      image.alt = source.alt;
-      document.getElementById('viewer-caption').textContent = source.alt;
+      image.alt = window.ciciI18n?.originalText(source, 'alt') || source.alt;
+      document.getElementById('viewer-caption').textContent = window.ciciI18n?.originalText(source, 'alt') || source.alt;
       viewer.showModal();
       viewer.querySelector('.viewer-scroll').scrollTo(0, 0);
     });
